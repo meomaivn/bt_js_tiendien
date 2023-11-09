@@ -18,7 +18,7 @@
         <!-- place navbar here -->
     </header>
     <main>
-        <section class="TraBank">
+        <section class="TraTienDien">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
@@ -59,7 +59,11 @@
                             <label for="">Muốn share bao nhiêu người?</label>
                             <input type="text" name="" id="textShare" class="form-control"> người
                         </div> -->
-                                <button id="submitPower" class="btn btn-danger">Tinh nao</button>
+                                <button type="button" class="btn btn-primary" onclick="calcElecBill()">
+                                    Tính Tiền Điện
+                                    <!-- <button onclick="calcElecBill()" , id="submitPower"
+                                    class="btn btn-danger"></button>>Tinh
+                                nao</button> -->
                             </div>
                             <div id="footerPower" class="card-footer text-muted"></div>
                         </div>
@@ -72,6 +76,64 @@
 
         </section>
 
+
+
+        <section class="Tinh__diem__chuan">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-dark font-weight-bold text-center text-white">
+                                Tính điểm chuẩn trường
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+
+                                    <label for="">Nhập điểm chuẩn trường: </label>
+                                    <input type="text" name="" id="markSchool" class="form-control">
+                                </div>
+                                <div class="form-group">
+
+                                    <label for="">Nhập điểm môn 1: </label>
+                                    <input type="text" name="" id="markOne" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label for="">Nhập điểm môn 2: </label>
+                                    <input type="text" name="" id="markTwo" class="form-control">
+                                </div>
+                                <div class="form-group">
+
+                                    <label for="">Nhập điểm môn 3: </label>
+                                    <input type="text" name="" id="markThree" class="form-control">
+                                </div>
+                                <div class="form-group ">
+
+                                    <select class="form-control form__input col-md-6 mt-3 mb-3" name=""
+                                        id="selDoiTuong">
+                                        <option value="0">Chọn đối tượng</option>
+                                        <option value="2.5">1</option>
+                                        <option value="1.5">2</option>
+                                        <option value="1">3</option>
+                                    </select>
+                                </div>
+
+
+
+                                <button id="submitMark" class="btn btn-danger" onclick="calcMark()">Tinh
+                                    nao</button>
+                            </div>
+                            <div id="footerMark" class="card-footer text-muted"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </section>
     </main>
     <footer>
         <!-- place footer here -->
