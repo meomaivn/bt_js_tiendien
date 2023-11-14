@@ -181,9 +181,89 @@ function calcElecBill() {
  * b2: Xử lý:
  * diểm 3 môn > = điểm chuẩn && điểm môn 1, môn 2 môn 3 !=0 bạn rớt chắc
  *
- *
- *
- * */
+ * *
+ * * * */
+function tongDiemTC(diem1, diem2, diem3, diemKv, diemDoiTuong) {
+  var tong = 0;
+  tong = Number(diem1 + diem2 + diem3 + diemKv + diemDoiTuong);
+  console.log("tong", tong);
+  return tong;
+}
+function tinhDiemTrungBinh(diem1, diem2, diem3) {
+  var dtb = 0;
+  dtb = (Number(diem1) + Number(diem2) + Number(diem3)) / 3;
+  // output diem trung binh
+  console.log("Dtb ", dtb);
+  return dtb; //8
+  //sau lễnh return chương trình sẽ dừng
+}
+document.getElementById("submitMark").onclick = function () {
+  var markSchool = Number(document.getElementById("markSchool").value);
+  var markOne = Number(document.getElementById("markOne").value);
+  var markTwo = Number(document.getElementById("markTwo").value);
+  var markThree = Number(document.getElementById("markThree").value);
+  var diemTrungBinh = tinhDiemTrungBinh(markOne, markTwo, markThree);
+  var selKhuVuc = Number(document.getElementById("selKhuVuc").value);
+  var selDoiTuong = Number(document.getElementById("selDoiTuong").value);
+  var tongDiem = 0;
+  tongDiem = tongDiemTC(markOne, markTwo, markThree, selDoiTuong, selKhuVuc);
+  console.log("Tong diem: ", tongDiem);
+  // console.log("Khu vực ", selKhuVuc);
+  // console.log("Doi tuong : ", selDoiTuong);
+
+  if (markOne === 0 || markTwo === 0 || markThree === 0) {
+    document.getElementById("footerMark").innerHTML =
+      "Tổng điểm bạn đạt được: " + tongDiem;
+    document.getElementById("footerMark").innerHTML =
+      "Kết quả: Bạn thi trượt do môn thi có điểm liệt ";
+  } else if (tongDiem >= markSchool) {
+    document.getElementById("footerMark").innerHTML =
+      "Chúc mừng bạn đã đỗ ^_^ " + tongDiem;
+  } else {
+    document.getElementById("footerMark").innerHTML =
+      "Bạn không đậu gòi :((  " + tongDiem;
+  }
+};
+// tiền TAX
+var tienPhuthuoc = 4e6;
+var chiuThue60 = 60000000;
+var chiuThue120 = 120000000;
+var chiuThue210 = 210000000;
+var chiuThue384 = 384000000;
+var chiuThue624 = 624000000;
+var chiuThue960 = 960000000;
+
+var tax60 = 5 / 100;
+var tax60To120 = 10 / 100;
+var tax120To210 = 15 / 100; //90;
+var tax210T0384 = 20 / 100; //174
+var tax384To624 = 25 / 100; //240
+var tax624To960 = 30 / 100; //336
+var taxUpper960 = 35 / 100;
+
+// tien thue dưới 60 triệu
+function tienThueBac1(money, tax) {
+  return money * tax;
+}
+function tienThueBac2(money, tax) {
+  return (money - chiuThue60) * tax;
+}
+function tienThueBac3(money, tax) {
+  return (money - chiuThue120) * tax;
+}
+function tienThueBac4(money, tax) {
+  return (money - chiuThue210) * tax;
+}
+function tienThueBac5(money, tax) {
+  return (money - chiuThue384) * tax;
+}
+function tienThueBac6(money, tax) {
+  return (money - chiuThue624) * tax;
+}
+function tienThueBac7(money, tax) {
+  return (money - chiuThue960) * tax;
+}
+
 var submitTAX = document.getElementById("submitTAX");
 submitTAX.onclick = function () {
   const config = { style: "currency", currency: "VND" };
@@ -192,13 +272,13 @@ submitTAX.onclick = function () {
   var nameCustom = document.getElementById("nameCustom").value;
   var total12Months = document.getElementById("total12Months").value * 1;
   var namePhuThuoc = document.getElementById("namePhuThuoc").value * 1;
-  var tienPhuthuoc = 4e6;
-  var chiuThue60 = 60000000;
-  var chiuThue120 = 120000000;
-  var chiuThue210 = 210000000;
-  var chiuThue384 = 384000000;
-  var chiuThue624 = 624000000;
-  var chiuThue960 = 960000000;
+  // var tienPhuthuoc = 4e6;
+  // var chiuThue60 = 60000000;
+  // var chiuThue120 = 120000000;
+  // var chiuThue210 = 210000000;
+  // var chiuThue384 = 384000000;
+  // var chiuThue624 = 624000000;
+  // var chiuThue960 = 960000000;
 
   namePhuThuoc *= 1.6e6;
   giamGiaCanh = tienPhuthuoc + namePhuThuoc;
@@ -213,44 +293,48 @@ submitTAX.onclick = function () {
   let taxChiuThue = 0;
   console.log(nameCustom, namePhuThuoc, total12Months);
   if (thuNhapChiuThue <= chiuThue60) {
-    taxChiuThue = thuNhapChiuThue * 0.05;
+    // taxChiuThue = thuNhapChiuThue * 0.05;
+    taxChiuThue = tienThueBac1(thuNhapChiuThue, tax60);
   } else if (chiuThue60 < thuNhapChiuThue && thuNhapChiuThue < chiuThue120) {
-    taxChiuThue = thuNhapChiuThue * 0.05 + (total12Months - chiuThue60) * 0.1;
+    taxChiuThue =
+      tienThueBac1(thuNhapChiuThue, tax60) +
+      tienThueBac2(thuNhapChiuThue, tax60To120); //thuNhapChiuThue * 0.05 + (thuNhapChiuThue - chiuThue60) * 0.1;
   } else if (chiuThue120 <= thuNhapChiuThue && thuNhapChiuThue < chiuThue210) {
     taxChiuThue =
+      tienThueBac1(thuNhapChiuThue, tax60) +
       thuNhapChiuThue * 0.05 +
-      chiuThue60 * 0.1 +
-      (thuNhapChiuThue - chiuThue120) * 0.15;
+      tienThueBac2(thuNhapChiuThue, tax60To120) +
+      tienThueBac3(thuNhapChiuThue, tax120To210);
     // 90tr
   } else if (chiuThue210 < thuNhapChiuThue && thuNhapChiuThue <= chiuThue384) {
     taxChiuThue =
-      thuNhapChiuThue * 0.05 +
-      chiuThue60 * 0.1 +
-      (chiuThue210 - chiuThue120) * 0.15 +
-      (thuNhapChiuThue - chiuThue210) * 0.2;
+      tienThueBac1(thuNhapChiuThue, tax60) +
+      tienThueBac2(thuNhapChiuThue, tax60To120) +
+      tienThueBac3(thuNhapChiuThue, tax120To210) +
+      tienThueBac4(thuNhapChiuThue, tax210T0384);
   } else if (chiuThue384 < thuNhapChiuThue && thuNhapChiuThue <= chiuThue624) {
     taxChiuThue =
-      thuNhapChiuThue * 0.05 +
-      chiuThue60 * 0.1 +
-      (chiuThue210 - chiuThue120) * 0.15 +
-      (chiuThue384 - chiuThue210) * 0.2 +
-      (thuNhapChiuThue - chiuThue384) * 0.25;
+      tienThueBac1(thuNhapChiuThue, tax60) +
+      tienThueBac2(thuNhapChiuThue, tax60To120) +
+      tienThueBac3(thuNhapChiuThue, tax120To210) +
+      tienThueBac4(thuNhapChiuThue, tax210T0384) +
+      tienThueBac5(thuNhapChiuThue, tax384To624);
   } else if (chiuThue624 < thuNhapChiuThue && thuNhapChiuThue <= chiuThue960) {
     taxChiuThue =
-      thuNhapChiuThue * 0.05 +
-      chiuThue60 * 0.1 +
-      (chiuThue210 - chiuThue120) * 0.15 +
-      (chiuThue384 - chiuThue210) * 0.2 +
-      (chiuThue624 - chiuThue384) * 0.25 +
-      (thuNhapChiuThue - chiuThue624) * 0.3;
+      tienThueBac1(thuNhapChiuThue, tax60) +
+      tienThueBac2(thuNhapChiuThue, tax60To120) +
+      tienThueBac3(thuNhapChiuThue, tax120To210) +
+      tienThueBac4(thuNhapChiuThue, tax210T0384) +
+      tienThueBac5(thuNhapChiuThue, tax384To624) +
+      tienThueBac6(thuNhapChiuThue, tax624To960);
   } else if (thuNhapChiuThue >= chiuThue960) {
-    thuNhapChiuThue * 0.05 +
-      chiuThue60 * 0.1 +
-      (chiuThue210 - chiuThue120) * 0.15 +
-      (chiuThue384 - chiuThue210) * 0.2 +
-      (chiuThue624 - chiuThue384) * 0.25 +
-      (chiuThue960 - chiuThue624) * 0.3 +
-      (thuNhapChiuThue - chiuThue960) * 0.35;
+    tienThueBac1(thuNhapChiuThue, tax60) +
+      tienThueBac2(thuNhapChiuThue, tax60To120) +
+      tienThueBac3(thuNhapChiuThue, tax120To210) +
+      tienThueBac4(thuNhapChiuThue, tax210T0384) +
+      tienThueBac5(thuNhapChiuThue, tax384To624) +
+      tienThueBac6(thuNhapChiuThue, tax624To960) +
+      tienThueBac7(thuNhapChiuThue, taxUpper960);
   }
 
   console.log("Tiền thuế bạn phải nộp: ", formated.format(taxChiuThue));
