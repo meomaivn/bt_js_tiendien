@@ -222,20 +222,37 @@ submitTAX.onclick = function () {
       chiuThue60 * 0.1 +
       (thuNhapChiuThue - chiuThue120) * 0.15;
     // 90tr
-  } else if (chiuThue210 <= thuNhapChiuThue && thuNhapChiuThue < chiuThue384) {
+  } else if (chiuThue210 < thuNhapChiuThue && thuNhapChiuThue <= chiuThue384) {
     taxChiuThue =
       thuNhapChiuThue * 0.05 +
       chiuThue60 * 0.1 +
       (chiuThue210 - chiuThue120) * 0.15 +
       (thuNhapChiuThue - chiuThue210) * 0.2;
-  } else if (chiuThue384 <= thuNhapChiuThue && thuNhapChiuThue <= 624) {
+  } else if (chiuThue384 < thuNhapChiuThue && thuNhapChiuThue <= chiuThue624) {
     taxChiuThue =
       thuNhapChiuThue * 0.05 +
       chiuThue60 * 0.1 +
       (chiuThue210 - chiuThue120) * 0.15 +
       (chiuThue384 - chiuThue210) * 0.2 +
       (thuNhapChiuThue - chiuThue384) * 0.25;
+  } else if (chiuThue624 < thuNhapChiuThue && thuNhapChiuThue <= chiuThue960) {
+    taxChiuThue =
+      thuNhapChiuThue * 0.05 +
+      chiuThue60 * 0.1 +
+      (chiuThue210 - chiuThue120) * 0.15 +
+      (chiuThue384 - chiuThue210) * 0.2 +
+      (chiuThue624 - chiuThue384) * 0.25 +
+      (thuNhapChiuThue - chiuThue624) * 0.3;
+  } else if (thuNhapChiuThue >= chiuThue960) {
+    thuNhapChiuThue * 0.05 +
+      chiuThue60 * 0.1 +
+      (chiuThue210 - chiuThue120) * 0.15 +
+      (chiuThue384 - chiuThue210) * 0.2 +
+      (chiuThue624 - chiuThue384) * 0.25 +
+      (chiuThue960 - chiuThue624) * 0.3 +
+      (thuNhapChiuThue - chiuThue960) * 0.35;
   }
+
   console.log("Tiền thuế bạn phải nộp: ", formated.format(taxChiuThue));
   // KQ TAX
   result += "<p>Tien thue cua ban</p>";
