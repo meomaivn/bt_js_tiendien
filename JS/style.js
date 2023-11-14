@@ -328,7 +328,8 @@ submitTAX.onclick = function () {
       tienThueBac5(thuNhapChiuThue, tax384To624) +
       tienThueBac6(thuNhapChiuThue, tax624To960);
   } else if (thuNhapChiuThue >= chiuThue960) {
-    tienThueBac1(thuNhapChiuThue, tax60) +
+    taxChiuThue =
+      tienThueBac1(thuNhapChiuThue, tax60) +
       tienThueBac2(thuNhapChiuThue, tax60To120) +
       tienThueBac3(thuNhapChiuThue, tax120To210) +
       tienThueBac4(thuNhapChiuThue, tax210T0384) +
