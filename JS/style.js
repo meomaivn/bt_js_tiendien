@@ -419,8 +419,8 @@ document.getElementById("submitTraTienCap").onclick = function () {
     cpKN = 15 + 75 + (numberCon - 10) * 5 + thueCCDN * numberPrem;
   }
   document.getElementById("footerTraTienCap").innerHTML =
-    "Chi Phí Kết Nối Quý  Khách: " +
-    " \n Mã thuê bao" +
+    "Chi Phí Kết Nối Quý  Khách: \n" +
+    "  Mã thuê bao" +
     " " +
     maKH +
     " " +
@@ -430,7 +430,7 @@ document.getElementById("submitTraTienCap").onclick = function () {
 
 function myFunction() {
   var selKh = document.getElementById("selKh").value;
-  if (selKh == "Nha_Dan") {
+  if (selKh == 2) {
     document.getElementById("numberCon").disabled = true;
   } else {
     document.getElementById("numberCon").disabled = false;
