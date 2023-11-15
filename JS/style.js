@@ -389,39 +389,45 @@ var phiDVCB = 20.5;
 var thueCCND = 7.5;
 var thueCCDN = 50;
 var phiThueKenhCaoCap;
+var KQ;
+var cpKN;
 
-function dvKenhCaoCapNhaDan(a, b) {
-  return thueCCND * numberPrem;
-}
-
-console.log(dvKenhCaoCapNhaDan);
 document.getElementById("submitTraTienCap").onclick = function () {
   var numberCon = Number(document.getElementById("numberCon").value);
-  var numberPrem = parseInt(document.getElementById("numberPrem").value);
+  var numberPrem = Number(document.getElementById("numberPrem").value);
   var maKH = document.getElementById("numberCustomer").value;
-
+  var selKh = document.getElementById("selKh").value;
   console.log("so ket noi ", numberCon);
   console.log("ket noi prem ", numberPrem);
   console.log("ma khach hang ", maKH);
   console.log("đối tượng khách hàng: ", selKh);
-
+  var cpKN = 0;
   var tong = 0;
 
-  if (selKh == "Nha_Dan") {
-    phiThueKenhCaoCap = Number(dvKenhCaoCapNhaDan(thueCCND, numberPrem));
+  if (selKh == 2) {
+    // cpKN = chiPhiND(phiXuly, phiDVCB, thueCCND, numberPrem);
+    cpKN = phiXuly + phiDVCB + thueCCND * numberPrem;
+    console.log("chi phi ket noi: ", cpKN);
     // ThueKenhCaoCap = 7.5;
     // phiThueKenhCaoCap = 7.5 * numberPrem;
-  } else if (selKh == "Doanh_Nghiep") {
+  } else if (numberCon <= 10) {
+    cpKN = 15 + 75 + 50 * numberPrem;
+
     // phiThueKenhCaoCap = 7.5 * numberPrem;
     // phiThueKenhCaoCap = dvKenhCaoCap(ThueKenhCaoCap2 * numberPrem);
-    phiThueKenhCaoCap = dvKenhCaoCapDN(thueCCDN, numberPrem);
+  } else {
+    cpKN = 15 + 75 + (numberCon - 10) * 5 + thueCCDN * numberPrem;
   }
-  console.log("KQ", phiThueKenhCaoCap);
-  console.log("KQ2 ", dvKenhCaoCapDN);
+  document.getElementById("footerTraTienCap").innerHTML =
+    "Chi Phí Kết Nối Quý  Khách: " +
+    " \n Mã thuê bao" +
+    " " +
+    maKH +
+    " " +
+    cpKN +
+    " $";
 };
-function dvKenhCaoCapDN(c, d) {
-  return thueCCND * numberPrem;
-}
+
 function myFunction() {
   var selKh = document.getElementById("selKh").value;
   if (selKh == "Nha_Dan") {
