@@ -179,8 +179,8 @@ function calcElecBill() {
  * nhập điểm môn 1, môn 2, môn 3;
  * nhập đối tượng, nhập điểm ưu tiên
  * b2: Xử lý:
- * diểm 3 môn > = điểm chuẩn && điểm môn 1, môn 2 môn 3 !=0 bạn rớt chắc
- *
+ * diem1 || diem 2, diem 3 #0
+ *điểm
  * *
  * * * */
 function tongDiemTC(diem1, diem2, diem3, diemKv, diemDoiTuong) {
@@ -197,6 +197,17 @@ function tinhDiemTrungBinh(diem1, diem2, diem3) {
   return dtb; //8
   //sau lễnh return chương trình sẽ dừng
 }
+var type2 = "";
+// var TC = 0;
+function SoSanhDiem(a, b, c, d, e) {
+  if (a == 0 || b == 0 || c == 0) {
+    type2 = "Bạn rớt: ";
+    console.log("KQ", type2);
+    return false;
+  } else if (d >= e) {
+    type2 = "Bạn đỗ: ";
+  }
+}
 document.getElementById("submitMark").onclick = function () {
   var markSchool = Number(document.getElementById("markSchool").value);
   var markOne = Number(document.getElementById("markOne").value);
@@ -210,21 +221,49 @@ document.getElementById("submitMark").onclick = function () {
   console.log("Tong diem: ", tongDiem);
   // console.log("Khu vực ", selKhuVuc);
   // console.log("Doi tuong : ", selDoiTuong);
+  var type3 = SoSanhDiem(markOne, markTwo, markThree, tongDiem, markSchool);
 
-  if (markOne === 0 || markTwo === 0 || markThree === 0) {
-    document.getElementById("footerMark").innerHTML =
-      "Tổng điểm bạn đạt được: " + tongDiem;
-    document.getElementById("footerMark").innerHTML =
-      "Kết quả: Bạn thi trượt do môn thi có điểm liệt ";
-  } else if (tongDiem >= markSchool) {
-    document.getElementById("footerMark").innerHTML =
-      "Chúc mừng bạn đã đỗ ^_^ " + tongDiem;
-  } else {
-    document.getElementById("footerMark").innerHTML =
-      "Bạn không đậu gòi :((  " + tongDiem;
-  }
+  document.getElementById("footerMark").innerHTML = type2 + " " + tongDiem;
+  //     "Tổng điểm bạn đạt được: " + tongDiem;
+  // if (markOne === 0 || markTwo === 0 || markThree === 0) {
+  //   document.getElementById("footerMark").innerHTML =
+  //     "Tổng điểm bạn đạt được: " + tongDiem;
+  //   document.getElementById("footerMark").innerHTML =
+  //     "Kết quả: Bạn thi trượt do môn thi có điểm liệt ";
+  // } else if (tongDiem >= markSchool) {
+  //   document.getElementById("footerMark").innerHTML =
+  //     "Chúc mừng bạn đã đỗ ^_^ " + tongDiem;
+  // } else {
+  //   document.getElementById("footerMark").innerHTML =
+  //     "Bạn không đậu gòi :((  " + tongDiem;
+  // }
 };
 // tiền TAX
+/** 
+ * b1: nhập thong tin khách hàng
+ * nhập tổng thu nhạp 
+ * số người phụ thuộc
+ * b2 :
+ - Xử lý
+  thuNhapChiuThue = thuNhap - 4 - phuThuoc * 1.6 ;
+
+  if (thuNhapChiuThue <= 60) {
+    tienThue = thuNhapChiuThue * 0.05 ;
+  } else if (60 < thuNhapChiuThue && thuNhapChiuThue <= 120) {
+    tienThue = thuNhapChiuThue * 0.1 ;
+  } else if (120 < thuNhapChiuThue && thuNhapChiuThue <= 210) {
+    tienThue = thuNhapChiuThue * 0.15 ;
+  } else if (210 < thuNhapChiuThue && thuNhapChiuThue <= 384) {
+    tienThue = thuNhapChiuThue * 0.2 ;
+  } else if (384 < thuNhapChiuThue && thuNhapChiuThue <= 624) {
+    tienThue = thuNhapChiuThue * 0.25 ;
+  } else if (624 < thuNhapChiuThue && thuNhapChiuThue <= 960) {
+    tienThue = thuNhapChiuThue * 0.3 ;
+  } else {
+    tienThue = thuNhapChiuThue * 0.35 ;
+  }
+
+ * */
 var tienPhuthuoc = 4e6;
 var chiuThue60 = 60000000;
 var chiuThue120 = 120000000;
@@ -272,13 +311,6 @@ submitTAX.onclick = function () {
   var nameCustom = document.getElementById("nameCustom").value;
   var total12Months = document.getElementById("total12Months").value * 1;
   var namePhuThuoc = document.getElementById("namePhuThuoc").value * 1;
-  // var tienPhuthuoc = 4e6;
-  // var chiuThue60 = 60000000;
-  // var chiuThue120 = 120000000;
-  // var chiuThue210 = 210000000;
-  // var chiuThue384 = 384000000;
-  // var chiuThue624 = 624000000;
-  // var chiuThue960 = 960000000;
 
   namePhuThuoc *= 1.6e6;
   giamGiaCanh = tienPhuthuoc + namePhuThuoc;
@@ -299,7 +331,7 @@ submitTAX.onclick = function () {
     taxChiuThue =
       tienThueBac1(thuNhapChiuThue, tax60) +
       tienThueBac2(thuNhapChiuThue, tax60To120); //thuNhapChiuThue * 0.05 + (thuNhapChiuThue - chiuThue60) * 0.1;
-  } else if (chiuThue120 <= thuNhapChiuThue && thuNhapChiuThue < chiuThue210) {
+  } else if (chiuThue120 < thuNhapChiuThue && thuNhapChiuThue <= chiuThue210) {
     taxChiuThue =
       tienThueBac1(thuNhapChiuThue, tax60) +
       thuNhapChiuThue * 0.05 +
@@ -345,43 +377,56 @@ submitTAX.onclick = function () {
     "<p>Tien thu nhap mot nam la:" + formated.format(total12Months) + "</p>";
   result += "<p>Số người phụ thuộc:" + formated.format(namePhuThuoc) + "</p>";
   result += "<p>tiền phụ thuộc :" + formated.format(giamGiaCanh) + "</p>";
-  result += "<p>Tiền thuế bạn đóng là:" + formated.format(taxChiuThue) + "</p>";
+  result +=
+    "<p>Tiền thuế bạn cần đóng là:" + formated.format(taxChiuThue) + "</p>";
+  result += "<p>Tiền thuế bạn là:" + formated.format(thuNhapChiuThue) + "</p>";
   var footerTAX = document.getElementById("footerTAX");
   footerTAX.innerHTML = result;
 };
+// tiền cáp
+var phiXuly = 4.5;
+var phiDVCB = 20.5;
+var thueCCND = 7.5;
+var thueCCDN = 50;
+var phiThueKenhCaoCap;
 
-// function calcTAX() {
-//   var submitTAX = document.getElementById("submitTAX");
-//   submitTAX.onclick = function () {
-//     var nameCustom = document.getElementById("nameCustom").value;
-//     var total12Months = document.getElementById("total12Months").value * 1;
-//     var namePhuThuoc = document.getElementById("namePhuThuoc").value * 1;
-//     var tienPhuthuoc = 4e6;
-//     var tax60 = 5 / 100;
-//     var tax60To120 = 10 / 100;
-//     var tax120To210 = 15 / 100; //90;
-//     var tax210T0384 = 20 / 100; //174
-//     var tax384To624 = 25 / 100; //240
-//     var tax624To960 = 30 / 100; //336
-//     var taxUpper960 = 35 / 100;
-//     namePhuThuoc *= 1.6e6;
-//     giamGiaCanh = tienPhuthuoc + namePhuThuoc;
-//     console.log("Gia cảnh", giamGiaCanh);
+function dvKenhCaoCapNhaDan(a, b) {
+  return thueCCND * numberPrem;
+}
 
-//     console.log("so tien", namePhuThuoc);
-//     let taxChiuThue = 0;
-//     let ketqua = "";
-//     console.log(nameCustom, namePhuThuoc, total12Months);
-//     if (isNaN(total12Months) || isNaN(namePhuThuoc)) {
-//       ketqua = "Vui lòng nhập số";
-//     } else {
-//       ketqua = "Bạn đã nhập số";
-//     }
-//   };
-//   if (ketqua == "Bạn đã nhập số") {
-//     if (total12Months <= 60000000) {
-//       taxChiuThue = (total12Months - giamGiaCanh) * tax60;
-//       console.log("tax chịu thuế là: ", taxChiuThue);
-//     }
-//   }
-// }
+console.log(dvKenhCaoCapNhaDan);
+document.getElementById("submitTraTienCap").onclick = function () {
+  var numberCon = Number(document.getElementById("numberCon").value);
+  var numberPrem = parseInt(document.getElementById("numberPrem").value);
+  var maKH = document.getElementById("numberCustomer").value;
+
+  console.log("so ket noi ", numberCon);
+  console.log("ket noi prem ", numberPrem);
+  console.log("ma khach hang ", maKH);
+  console.log("đối tượng khách hàng: ", selKh);
+
+  var tong = 0;
+
+  if (selKh == "Nha_Dan") {
+    phiThueKenhCaoCap = Number(dvKenhCaoCapNhaDan(thueCCND, numberPrem));
+    // ThueKenhCaoCap = 7.5;
+    // phiThueKenhCaoCap = 7.5 * numberPrem;
+  } else if (selKh == "Doanh_Nghiep") {
+    // phiThueKenhCaoCap = 7.5 * numberPrem;
+    // phiThueKenhCaoCap = dvKenhCaoCap(ThueKenhCaoCap2 * numberPrem);
+    phiThueKenhCaoCap = dvKenhCaoCapDN(thueCCDN, numberPrem);
+  }
+  console.log("KQ", phiThueKenhCaoCap);
+  console.log("KQ2 ", dvKenhCaoCapDN);
+};
+function dvKenhCaoCapDN(c, d) {
+  return thueCCND * numberPrem;
+}
+function myFunction() {
+  var selKh = document.getElementById("selKh").value;
+  if (selKh == "Nha_Dan") {
+    document.getElementById("numberCon").disabled = true;
+  } else {
+    document.getElementById("numberCon").disabled = false;
+  }
+}

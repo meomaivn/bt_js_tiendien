@@ -75,7 +75,7 @@
             </div>
 
         </section>
-        <section class="Tinh__diem__chuan">
+        <section class="Tinh__diem__chuan mt-3">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
@@ -120,7 +120,7 @@
                                         <option value=".5">C</option>
                                     </select>
                                 </div>
-                                <button id="submitMark" class="btn btn-danger" onclick="calcMark()">Tinh
+                                <button id="submitMark" class="btn btn-danger">Tinh
                                     nao</button>
                             </div>
                             <div id="footerMark" class="card-footer text-muted"></div>
@@ -134,13 +134,13 @@
 
         </section>
 
-        <section class="TraTienTAX">
+        <section class="TraTienTAX mt-3">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header bg-dark font-weight-bold text-center text-white">
-                                Trả tiền điện
+                                Tính tiền thuế
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
@@ -179,7 +179,44 @@
 
         </section>
 
+        <section class="TraTienCap mt-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-dark font-weight-bold text-center text-white">
+                                Tinh Tiền cáp
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="">Mã khách hàng: </label>
+                                    <input type="text" name="" id="numberCustomer" class="form-control">
+                                </div>
+                                <div class="form-group ">
+                                    <label class="form-control">Loại Khách Hàng</label>
+                                    <select class="form-control form__input col-md-6 mt-3 mb-3" name="" id="selKh" onchange="myFunction()">
+                                        <option value="">Chọn loại khách hàng</option>
+                                        <option value="Doanh_Nghiep">Doanh nghiệp</option>
+                                        <option value="Nha_Dan">Nhà dân</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Nhập số kết nối: </label>
+                                    <input type="text" name="" disabled id="numberCon" class="form-control">
+                                </div>
 
+                                <div class="form-group">
+                                    <label for="">Số kênh cao cấp: </label>
+                                    <input type="text" name="" id="numberPrem" class="form-control">
+                                </div>
+                                <button id="submitTraTienCap" type="button" class="btn btn-primary">
+                                    Tính Tiền Cáp
+                                </button>
+                            </div>
+                            <div id="footerTraTienCap" class="card-footer text-muted"></div>
+                        </div>
+                    </div>
+                </div>
 
     </main>
     <footer>
